@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Lamarr: implementing a flash-simulation paradigm at LHCb (ACAT 2024 poster)</title>
+    <link rel="stylesheet" href="poster.css">
+    <meta name="viewport" content="height=device-height, width=device-width, initial-scale=1">
+    <!-- Based on a poster template from https://github.com/cpitclaudel/academic-poster-template -->
+
+          <script type="text/javascript" id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+          <link href="https://fonts.googleapis.com/css2?family=Fira+Sans+Condensed:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&amp;family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&amp;display=swap" rel="stylesheet">
+    
+      <style type="text/css">
+    html { font-size: 0.95rem }
+  </style>
+  </head>
+
+  <body vocab="http://schema.org/" typeof="ScholarlyArticle">
+    <header role="banner">
+      <aside>
+          <a href="http://lhcb.web.cern.ch"><img style="height: 4.5rem" src="img/logos/lhcb-logo.png" alt="LHCb logo"></a>
+  <img style="height: 4.5rem" src="img/logos/lamarr-white-logo.png" alt="Lamarr logo">
+      </aside>
+      <div>
+        <h1 property="headline">Lamarr: implementing a flash-simulation paradigm at LHCb</h1>
+                          <p>in <strong><em>22nd International Workshop on Advanced Computing and Analysis Techniques in Physics Research</em></strong> (ACAT 2024)</p>
+                                <address>
+            <span class="medium">
+    <a property="author"><strong>M. Mazurek</strong><sup>a</sup> on behalf of the LHCb Simulation Project</a>
+  </span>
+<br/>            <span class="normal">
+    <sup>a</sup><a property="sourceOrganization">National Centre for Nuclear Research (NCBJ), Poland</a>
+  </span>
+        </address>
+        <span class="publication-info">
+                      <span property="publisher">ACAT 2024</span>,
+            <time pubdate property="datePublished" datetime="2024-03-13">March 13, 2024</time>
+                  </span>
+      </div>
+      <aside>
+          <a href="https://indico.cern.ch/event/1330797"><img src="img/logos/acat2024-logo-white.png" alt="ACAT logo"></a>
+      </aside>
+    </header>
+
+    <main property="articleBody">
+          <article>
+    <header><h3>1. Motivation</h3></header>
+    <p>
+      The <strong>detailed simulation</strong> of the interaction between the traversing particles 
+      and the LHCb active volumes is the major consumer of CPU resources. During the LHC Run 2, the
+      LHCb experiment has spent <strong>more than 90% of the pledged CPU time</strong> to produce 
+      simulations. Matching the upcoming and future demand for simulated samples make unavoidable
+      the upgrade of the current technologies developing <strong>faster simulation options</strong>.
+    </p>
+  </article>
+
+    <article>
+    <header><h3>2. Fast simulation VS. flash simulation</h3></header>
+    <figure>
+      <img style="width: 95%" src="img/schemes/full-sim-scheme.png" alt="full sim schemes">
+      <figcaption>
+        <small>
+          Traditional data processing flow at LHCb.
+        </small>
+      </figcaption>
+    </figure>
+    <hr/>
+    <figure>
+      <img style="width: 95%" src="img/schemes/fast-sim-scheme.png" alt="fast sim schemes">
+      <figcaption>
+        <small>
+          <strong><em>Fast simulation</em></strong> techniques aim to speed up the Geant4-based 
+          simulation production by parameterizing the energy deposits.
+        </small>
+      </figcaption>
+    </figure>
+    <hr/>
+    <figure>
+      <img style="width: 95%" src="img/schemes/flash-sim-scheme.png" alt="flash sim schemes">
+      <figcaption>
+        <small>
+          <strong><em>Flash</em></strong> (or <em>Ultra-Fast</em>) <strong><em>simulation</em></strong> 
+          strategies directly transform generator-level particles into analysis-level reconstructed objects
+        </small>
+      </figcaption>
+    </figure>
+      </article>
+
+    <article>
+    <header><h3>3. What is Lamarr?</h3></header>
+    <p>
+      <strong><em>Lamarr</em></strong> is the novel flash-simulation framework of LHCb, able to offer the 
+      fastest option for simulation. Lamarr consists of a <strong>pipeline of</strong> (ML-based) <strong>modular 
+      parameterizations</strong> designed to replace both the simulation and reconstruction steps.
+    </p>
+    <figure>
+      <img style="width: 98%" src="img/schemes/lamarr-pipeline.png" alt="Lamarr modular layout">
+    </figure>
+    <p>
+      The Lamarr pipeline can be split in two chains:
+      <ol>
+        <li>a branch treating <strong>charged particles</strong> relying on tracking and particle identification 
+        models</li>
+        <li>a branch facing the <em>particle-to-particle correlation</em> problem innate in the <strong>neutral 
+        objects</strong> reconstruction</li>
+      </ol>
+  </article>
+
+    <article>
+    <header><h3>4. ML-based models for charged particles</h3></header>
+    <p>
+      <strong><u>Efficiency models:</u></strong> <em>Deep Neural Networks</em> trained to perform classification
+      tasks so that they can be used to parameterize the fraction of “good” candidates (e.g., accepted, 
+      reconstructed, or selected)
+    </p>
+    <hr/>
+    <p>
+      <strong><u>High-level quantities:</u></strong> Conditional <em>Generative Adversarial Networks</em>
+      (GAN) trained on either simulated or calibration data to synthetize the high-level response of 
+      LHCb sub-detectors.
+    </p>
+  </article>
+
+    <article>
+    <header><h3>5. Model deployment within Gauss</h3></header>
+    <p>
+      Best-performing parameterizations can easily replace specific modules without recompiling the whole
+      pipeline using the deployment tool <strong><span class="monospace">scikinC</span></strong>.
+    </p>
+    <p>
+      <span class="monospace">scikinC</span> translates ML-based models to be dynamically linked to the 
+      main application (Gauss). In this way, parameterizations can be developed and released 
+      <strong>independently</strong>.
+    </p>
+    <ul>
+      <li>Train a model;</li>
+      <li><strong>Transpile</strong> the model to a C file with <span class="monospace">scikinC</span>;</li>
+      <li>Compile the C file to a <em>shared object</em>;</li>
+      <li>Link the <em>shared object</em> to the LHCb simulation software;</li>
+      <li>Produce <strong>simulated samples</strong>.</li>
+    </ul>
+  </article>
+
+    <article>
+    <header><h3>6. Validation campaign</h3></header>
+    <p>
+      Lamarr is currently under validation, comparing the distributions of the <strong>analysis-level 
+      reconstructed</strong> quantities parameterized with what obtained from <em>detailed 
+      simulation</em> for \(\Lambda_b^0 \to \Lambda_c^+ \mu^- X\) decays with 
+      \(\Lambda_c^+ \to p K^- \pi^+\). 
+    </p>
+    <p>
+      <ul>
+        <li>Decay abundantly produced in the LHCb acceptance, widely studied, and also utilized as <em>PID calibration sample</em>;</li>
+        <li>It is described by a complex decay model including many feed-down modes;</li>
+        <li>It provides examples for <strong>muons</strong>, <strong>pions</strong>, <strong>kaons</strong> and <strong>protons</strong> in a single decay mode.</li>
+      </ul>
+    </p>
+    <hr/>
+    <figure>
+      <img style="width: 49%" src="img/lhcb-figs/Py8_Lambda_c_mass.svg" alt="Py8 Lambda_c mass">
+      <img style="width: 49%" src="img/lhcb-figs/PGun_Lambda_c_mass.svg" alt="PGun Lambda_c mass">
+      <figcaption>
+        <small>
+          \(\Lambda_c^+\) mass obtained from Pythia8 (left) and Particle Gun (right) generators by 
+          Lamarr against <em>detailed simulation</em>. Reproduced from 
+          <a href="https://cds.cern.ch/record/2814081">LHCB-FIGURE-2022-014</a>.
+        </small>
+      </figcaption>
+    </figure>
+  </article>
+
+    <article>
+    <header><h3>7. Results: Tracking system</h3></header>
+    <p>
+      The momentum and the point of closest approach to the beams at generator-level <strong>get
+      smeared</strong>: GAN-based model is used to parameterize <em>multiple scattering</em> and 
+      residual detector effects (alignment, calibration).
+    </p>
+    <p>
+      Track reconstruction <strong>uncertainties</strong> rely on dedicated GAN-based model. 
+      Correct modeling track uncertainties is essential for LHCb analyses: e.g., the 
+      <em>impact parameter</em> (IP) is a common discriminator between prompt and displaced vertices.
+    </p>
+    <p>
+      Output quantities can be used within LHCb offline reconstruction to compute <strong>higher-level 
+      quantities</strong>, like the reconstructed mass.
+    </p>
+    <hr/>
+    <figure>
+      <img style="width: 49%" src="img/lhcb-figs/Py8_proton_IP_chi2.svg" alt="Py8 Proton IP chi2">
+      <img style="width: 49%" src="img/lhcb-figs/PGun_proton_IP_chi2.svg" alt="PGun Proton IP chi2">
+      <figcaption>
+        <small>
+          Proton impact parameter (IP) \(\chi^2\) obtained from Pythia8 (left) and Particle Gun (right) 
+          generators by Lamarr against <em>detailed simulation</em>. Reproduced from 
+          <a href="https://cds.cern.ch/record/2814081">LHCB-FIGURE-2022-014</a>.
+        </small>
+      </figcaption>
+    </figure>
+  </article>
+
+    <article>
+    <header><h3>8. Results: PID system</h3></header>
+    <p>
+      Smeared <em>track kinematics</em> and <em>detector occupancy</em> are used by two sets of 
+      GAN-based models to parameterize the <strong>high-level response</strong> of the RICH and 
+      MUON systems.
+    </p>
+    <p>
+      Further GAN-based models are trained to reproduce the <strong>higher-level PID classifiers</strong>
+      typically used in physics analyses, relying only on the input and the output of RICH and 
+      MUON parameterizations.
+    </p>
+    <p>
+      The adopted <strong>stacked GAN structure</strong> is designed to simulate both single-system 
+      detector response (RICH and MUON) and higher-level PID classifiers, enabling analysts to define
+      new higher level classifiers based on the underlying basic quantities.
+    </p>
+    <hr/>
+    <figure>
+      <img style="width: 49%" src="img/lhcb-figs/Py8_eff_TightProtonId.svg" alt="Py8 Proton ID">
+      <img style="width: 49%" src="img/lhcb-figs/PGun_eff_TightProtonId.svg" alt="PGun Proton ID">
+      <figcaption>
+        <small>
+          Proton identification efficiency obtained from Pythia8 (left) and Particle Gun (right) 
+          generators by Lamarr against <em>detailed simulation</em>. Reproduced from 
+          <a href="https://cds.cern.ch/record/2814081">LHCB-FIGURE-2022-014</a>.
+        </small>
+      </figcaption>
+    </figure>
+  </article>
+
+    <article>
+    <header><h3>9. Timing performance</h3></header>
+    <p>
+      Overall time needed for producing simulated samples has been analyzed for fully <em>detailed simulation</em> 
+      (Geant4-based propagation) and Lamarr. Lamarr timing is dominated by <strong>particle generation</strong> (Pythia8).
+    </p>
+    <p>
+      Preliminary studies show that Lamarr ensure a <strong>CPU reduction of at least 98%</strong> for 
+      the physics simulation phase. Further improvement in timing can be achieved tacking the generation, 
+      as shown when using Particle Guns (e.g. only  generating signal of interest).
+    </p>
+    <hr/>
+    <p class="boxed center">
+              <strong><u>Detailed simulation:</u></strong> Pythia8 + Geant4<br/>
+        1M events @ 2.5 kHS06.s/event ≃ 80 HS06.y
+          </p>
+    <p class="boxed center">
+              <strong><u>Ultra-fast simulation:</u></strong> Pythia8 + Lamarr<br/>
+        1M events @ 0.5 kHS06.s/event ≃ 15 HS06.y
+          </p>
+    <p class="boxed center">
+              <strong><u>Ultra-fast simulation:</u></strong> Particle Gun + Lamarr<br/>
+        100M events @ 1 HS06.s/event ≃ 4 HS06.y
+          </p>
+  </article>
+
+    <article>
+    <header><h3>10. Conclusions and outlook</h3></header>
+    <p>
+      Great progress has been made on developing a <strong>fully parametric simulation</strong>
+      of the LHCb experiment, aiming to reduce the pressure on the CPU computing resources.
+    </p>
+    <p>
+      Model development, tuning and specialization will continue taking full advantage of 
+      <strong>opportunistic GPU resources</strong> made available to the LHCb Collaboration.
+    </p>
+    <ul>
+      <li>Further speed improvements under study;</li>
+      <li><em>Thread safety</em> for <strong>multithreaded Gaudi algorithms</strong> under development.</li>
+    </ul>
+  </article>
+
+    <article>
+    <header><h3>References</h3></header>
+    <small>
+      <ol>
+        <li>M. Borisyak and N. Kazeev, <em>Machine Learning on data with sPlot background subtraction</em>, <a href="https://doi.org/10.1088/1748-0221/14/08/p08020">JINST <strong>14</strong> (2019) P08020</a>, <a href="https://arxiv.org/abs/1905.11719">arXiv:1905.11719</a></li>
+        <li>A. Maevskiy <em>et al.</em>, <em>Fast Data-Driven Simulation of Cherenkov Detectors Using Generative Adversarial Networks</em>, <a href="https://doi.org/10.1088/1742-6596/1525/1/012097">J. Phys. Conf. Ser. <strong>1525</strong> (2020) 012097</a>, <a href="https://arxiv.org/abs/1905.11825">arXiv:1905.11825</a></li>
+        <li>L. Anderlini, <em>Machine Learning for the LHCb Simulation</em>, <a href="https://arxiv.org/abs/2110.07925">arXiv:2110.07925</a></li>
+        <li>L. Anderlini <em>et al.</em>, <em>Towards Reliable Neural Generative Modeling of Detectors</em>, <a href="https://arxiv.org/abs/2204.09947">arXiv:2204.09947</a></li>
+        <li>C. Bozzi, <em>LHCb Computing Resource usage in 2021</em>, <a href="https://cds.cern.ch/record/2802075">LHCb-PUB-2022-011</a></li>
+                        <li>L. Anderlini and M. Barbetti, <em>scikinC: a tool for deploying machine learning as binaries</em>, <a href="https://doi.org/10.22323/1.409.0034">PoS <strong>CompTools2021</strong> (2022) 034</a></li>
+        <li>L. Anderlini <em>et al.</em>, <em>Lamarr: the ultra-fast simulation option for the LHCb experiment</em>, <a href="https://doi.org/10.22323/1.414.0233">PoS <strong>ICHEP2022</strong> 233</a> (in preparation)</li>
+      </ol>
+    </small>
+  </article>
+
+        </main>
+
+    <footer>
+      <address>
+          on behalf of the LHCb Simulation Project
+      </address>
+      <address>
+          contact: <a class="monospace">Michal.Mazurek@cern.ch</a>
+      </address>
+                    March 2024, Stony Brook (Long Island NY, USA)
+    </footer>
+  </body>
+</html>
