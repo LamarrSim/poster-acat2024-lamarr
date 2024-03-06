@@ -4,8 +4,8 @@ in [*22nd International Workshop on Advanced Computing and Analysis Techniques i
 
 [![](https://img.shields.io/badge/indico-event-c89e6c?style=flat&logoColor=white)](https://indico.cern.ch/event/1330797)
 [![](https://img.shields.io/badge/indico-contribution-087cfc?style=flat&logoColor=white)](https://indico.cern.ch/event/1330797/contributions/5796635)
+[![](https://img.shields.io/badge/HTML-poster-E34F26?style=flat&logo=HTML5&logoColor=white)](https://lamarrsim.github.io/poster-acat2024-lamarr/poster.html)
 <!--
-[![](https://img.shields.io/badge/HTML-poster-E34F26?style=flat&logo=HTML5&logoColor=white)](https://mbarbetti.github.io/poster-acat2022-lamarr/poster.html)
 [![](https://img.shields.io/badge/PDF-poster-EC1C24?style=flat&logo=Adobe%20Acrobat%20Reader&logoColor=white)](https://indico.cern.ch/event/1106990/contributions/4991348/attachments/2529001/4363319/lamarr_poster_acat2022.pdf)
 [![](https://img.shields.io/badge/arXiv-2303.11428-B31B1B?style=flat&logoColor=white)](https://arxiv.org/abs/2303.11428)
 [![](https://img.shields.io/badge/J%20Phys:%20Conf%20Ser-(1525)012097-236fb5?style=flat&logoColor=white)](https://dx.doi.org/10.1088/1742-6596/1525/1/012097)
@@ -21,7 +21,7 @@ Good agreement is observed by comparing key reconstructed quantities obtained wi
 
 ### Authors
 
-> *_potential speakers_
+> *_speaker_
 
 - Lucio Anderlini [1]
 - Matteo Barbetti [2]
