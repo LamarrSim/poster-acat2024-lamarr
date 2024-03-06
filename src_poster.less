@@ -66,9 +66,9 @@ THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 @header-img-height: 8rem;
 
-@columns: 4;
+@columns: 3;
 @column-min-width: 22.5rem;
-@column-max-width: 30rem;
+@column-max-width: 35rem;
 
 @thin-space: 0.25rem;
 @mid-space: 0.5rem;
@@ -339,8 +339,8 @@ article {
         counter-reset: item;
 
         > li::before {
-            // color: @color-accent;
-            content: counter(item) ". ";
+            color: @color-accent;
+            content: counter(item) ". ";
             counter-increment: item;
             font-weight: 500;
             width: 1em;
@@ -380,8 +380,10 @@ article {
 ////////////////////////////////
 
 .boxed {
-    border: thin solid @color-accent;
+    border: solid @color-accent;
     padding: @thin-space;
+    // align-self: center;
+    // width: 65%;
 }
 
 .center {
