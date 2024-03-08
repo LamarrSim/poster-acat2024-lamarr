@@ -25,7 +25,7 @@
       <div>
         <h1 property="headline">Lamarr: implementing a flash-simulation paradigm at LHCb</h1>
                           <p>in <strong><em>22nd International Workshop on Advanced Computing and Analysis Techniques in Physics Research</em></strong> (ACAT 2024)</p>
-                                <address>
+                              <address>
             <span class="medium">
     <a property="author"><strong>M. Mazurek</strong><sup>a</sup> on behalf of the LHCb Simulation Project</a>
   </span>
@@ -50,8 +50,8 @@
       The <strong>detailed simulation</strong> of the interaction between the traversing particles 
       and the LHCb active volumes is the major consumer of CPU resources. During the LHC Run2, the
       LHCb experiment has spent <strong>more than 90% of the pledged CPU time</strong> to produce 
-      simulations. Matching the upcoming and future demand for simulated samples make unavoidable
-      the upgrade of the current technologies developing <strong>faster simulation options</strong>.
+      simulations. Matching the upcoming and future demand for simulated samples means that the 
+      development of <strong>faster simulation options</strong> is critical.
     </p>
   </article>
 
@@ -113,8 +113,8 @@
     <article>
     <header><h3>4. Models under the \(k\)-to-\(k\) hypothesis</h3></header>
     <p>
-      Assuming valid the existence of an <strong>unambiguous</strong> (\(k\)-to-\(k\)) <strong>relation</strong> 
-      between generated particles and reconstructed objects, the detector high-level response can be modeled in terms 
+      Assuming the existence of an <strong>unambiguous</strong> (\(k\)-to-\(k\)) <strong>relation</strong> 
+      between generated particles and reconstructed objects, the high-level detector response can be modeled in terms 
       of <strong>efficiency</strong> and <strong>"resolution"</strong> (i.e., analysis-level quantities):
       <ul>
         <li><strong><u>Efficiency:</u></strong> <em>Deep Neural Networks</em> (DNN) trained to perform 
@@ -133,8 +133,8 @@
       Lamarr parameterizes the high-level response of the <strong>LHCb tracking system</strong> relying on the 
       following models:
       <ul>
-        <li><strong><u>propagation:</u></strong> approximates the trajectory of a charged particles through 
-        the dipole magnetic field (parametric model);</li>
+        <li><strong><u>propagation:</u></strong> approximates the trajectory of charged particles through the 
+        dipole magnetic field (parametric model);</li>
         <li><strong><u>geometrical acceptance:</u></strong> predicts which of the generated tracks lay within a sensitive 
         area of the detector (DNN model);</li>
         <li><strong><u>tracking efficiency:</u></strong> predicts which of the generated tracks in acceptance are properly 
@@ -230,9 +230,9 @@
     <p>
       Lamarr provides the high-level response of the LHCb detector by relying on a <strong>pipeline of</strong> 
       (subsequent) <strong>ML-based modules</strong>. To validate the charged particles chain, the distributions 
-      of a set of <strong>analysis-level</strong> reconstructed quantities resulting from Lamarr have been
-      compared with what obtained from detailed simulation for \(\Lambda_b^0 \to \Lambda_c^+ \mu^- X\) decays with 
-      \(\Lambda_c^+ \to p K^- \pi^+\). 
+      of a set of <strong>analysis-level</strong> reconstructed quantities resulting from Lamarr have been 
+      compared with that obtained from detailed simulation for \(\Lambda_b^0 \to \Lambda_c^+ \mu^- X\) decays 
+      with \(\Lambda_c^+ \to p K^- \pi^+\). 
     </p>
     <p>
       The deployment of the ML-based models follows a <strong><em>transcompilation approach</em></strong> based on 
@@ -292,13 +292,13 @@
     <article>
     <header><h3>10. Conclusions and outlook</h3></header>
     <p>
-      Great effort is ongoing to put into production a <strong>fully parametric simulation</strong>
-      of the LHCb experiment, aiming to reduce the pressure on the CPU computing resources.
+      Great effort is ongoing to put a <strong>fully parametric simulation</strong> of the LHCb experiment 
+      into production, aiming to reduce the pressure on computing resources.
     </p>
     <p>
-      DNN-based and GAN-based models succeed in describing the high-level response of the LHCb
-      tracking and PID detectors for <strong>charged particles</strong>, while work is still required to 
-      parameterize the response of the ECAL detector due to the <strong>particle-to-particle </strong>.
+      DNN-based and GAN-based models succeed in describing the high-level response of the LHCb tracking and 
+      PID detectors for <strong>charged particles</strong>, while work is still required to parameterize the 
+      response of the ECAL detector due to the <strong>particle-to-particle correlation problem</strong>.
     </p>
     <p>
       The future development of Lamarr looks to design a flash-simulation framework that, although
