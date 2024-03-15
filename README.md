@@ -48,7 +48,7 @@ Good agreement is observed by comparing key reconstructed quantities obtained wi
 
 ## Acknowledgements
 
-This work is partially supported by ICSC – Centro Nazionale di Ricerca in High Performance Computing, Big Data and Quantum Computing, funded by European Union – NextGenerationEU.
+This work is partially supported by [ICSC – Centro Nazionale di Ricerca in High Performance Computing, Big Data and Quantum Computing](https://www.supercomputing-icsc.it/en), funded by European Union – NextGenerationEU.
 
 ## Credits
 
