@@ -46,6 +46,10 @@ Good agreement is observed by comparing key reconstructed quantities obtained wi
   </ol>
 </details>
 
+## Acknowledgements
+
+This work is partially supported by ICSC – Centro Nazionale di Ricerca in High Performance Computing, Big Data and Quantum Computing, funded by European Union – NextGenerationEU.
+
 ## Credits
 
 Poster project based on [cpitclaudel/academic-poster-template](https://github.com/cpitclaudel/academic-poster-template). Poster webpage hosted by [GitHub page](https://pages.github.com).
